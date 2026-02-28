@@ -1,16 +1,19 @@
 import streamlit as st
 from openai import OpenAI
-import httpx  # <--- 就是少了这一行！
+# 注意：即使不直接写 httpx.Client，
+# 也要确保 requirements.txt 里有 openai，它会自动处理连接。
 
 # --- 1. DeepSeek API 配置 ---
-# 删掉原来的 "sk-xxxx..."，换成下面这行代码
+# 从 Secrets 保险箱读取 Key
 DEEPSEEK_API_KEY = st.secrets["DEEPSEEK_KEY"]
 
+# 这里我们恢复最标准、最简洁的写法
 client = OpenAI(
     api_key=DEEPSEEK_API_KEY, 
-    base_url="https://api.deepseek.com",
-    http_client=httpx.Client(proxies={}) # 依然保留强制直连
+    base_url="https://api.deepseek.com"
 )
+
+# --- 后面的代码保持不变 ---
 
 # --- 2. 网页页面设置 ---
 st.set_page_config(page_title="DeepSeek 健康助手", layout="centered")
@@ -74,4 +77,5 @@ with col2:
 st.divider()
 
 st.caption("©️ 2026 我的第一个 AI 网站 | 保持运动，热爱生活")
+
 
