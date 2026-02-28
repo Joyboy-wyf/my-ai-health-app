@@ -1,5 +1,6 @@
 import streamlit as st
 from openai import OpenAI
+import httpx  # <--- 就是少了这一行！
 
 # --- 1. DeepSeek API 配置 ---
 # 删掉原来的 "sk-xxxx..."，换成下面这行代码
@@ -73,3 +74,4 @@ with col2:
 st.divider()
 
 st.caption("©️ 2026 我的第一个 AI 网站 | 保持运动，热爱生活")
+
