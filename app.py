@@ -2,12 +2,13 @@ import streamlit as st
 from openai import OpenAI
 
 # --- 1. DeepSeek API 配置 ---
-# 请在此处填入你从 DeepSeek 官网获取的真实 Key
-DEEPSEEK_API_KEY = "sk-1120d61c7cc9411ebe38864d2713087d"
+# 删掉原来的 "sk-xxxx..."，换成下面这行代码
+DEEPSEEK_API_KEY = st.secrets["DEEPSEEK_KEY"]
 
 client = OpenAI(
     api_key=DEEPSEEK_API_KEY, 
-    base_url="https://api.deepseek.com" # DeepSeek 的官方接口地址
+    base_url="https://api.deepseek.com",
+    http_client=httpx.Client(proxies={}) # 依然保留强制直连
 )
 
 # --- 2. 网页页面设置 ---
@@ -70,4 +71,5 @@ with col2:
 
 # --- 底部版权声明 ---
 st.divider()
+
 st.caption("©️ 2026 我的第一个 AI 网站 | 保持运动，热爱生活")
